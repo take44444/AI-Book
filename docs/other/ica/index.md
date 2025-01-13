@@ -53,11 +53,11 @@ $$
 
 と推定できる．不動点法等によりこれを最小化する$\hat{\bm{W}}$を推定する．
 
-ただし，この方法では$\bm{W}$の行の順序と行の尺度は識別不可能である．従って，この方法で推定した$\hat{\bm{W}}$を$\hat{\bm{W}}_{ICA}$とすると，
+ただし，この方法では$\bm{W}$の行の順序と行の尺度は識別不可能である．従って，この方法で推定した$\hat{\bm{W}}$を$\hat{\bm{W}}_\mathrm{ICA}$とすると，
 
 $$
 \begin{aligned}
-\hat{\bm{W}}_{ICA} &= \bm{P} \bm{D} \bm{W} \\
+\hat{\bm{W}}_\mathrm{ICA} &= \bm{P} \bm{D} \bm{W} \\
 &= \bm{P} \bm{D} \bm{A}^{-1}
 \end{aligned}
 $$
