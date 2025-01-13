@@ -35,29 +35,29 @@ $$
 \bm{x} = \bm{A} \bm{e}
 $$
 
-となる．ここで，$\bm{e}$の各成分は独立かつ非ガウス連続分布に従うため，[ICA](/AI-Book/other/ica/#ica)により復元行列$\hat{\bm{W}}_\rm{ICA}$を推定することができる．
+となる．ここで，$\bm{e}$の各成分は独立かつ非ガウス連続分布に従うため，[ICA](/AI-Book/other/ica/#ica)により復元行列$\hat{\bm{W}}_{ICA}$を推定することができる．
 
 $$
-\hat{\bm{W}}_\rm{ICA} = \bm{P}_\rm{ICA} \bm{D} \bm{A}^{-1} = \bm{P}_\rm{ICA} \bm{D} (\bm{I} - \bm{B}) \label{a}\tag{1}
+\hat{\bm{W}}_{ICA} = \bm{P}_{ICA} \bm{D} \bm{A}^{-1} = \bm{P}_{ICA} \bm{D} (\bm{I} - \bm{B}) \label{a}\tag{1}
 $$
 
-ここで，この$\bm{P}_\rm{ICA}$の推定を行う．
+ここで，この$\bm{P}_{ICA}$の推定を行う．
 
-$\hat{\bm{W}}_\rm{ICA}$の行の順序が$\bm{W}$と等しくない，つまり$\bm{P}_\rm{ICA}$が単位行列ではない時，$\hat{\bm{W}}_\rm{ICA}$の対角成分に必ず$0$が含まれることが知られている．従って，$\bm{W}_\rm{ICA}$を置換して対角成分が全て非ゼロになるような置換行列$\bm{P}_\rm{inv} = \bm{P}_\rm{ICA}^{-1}$を推定すればよい．そこで，$\hat{\bm{W}}_\rm{ICA}$の対角成分の絶対値が最大になるような$\hat{\bm{P}}_\rm{inv}$を推定する．
+$\hat{\bm{W}}_{ICA}$の行の順序が$\bm{W}$と等しくない，つまり$\bm{P}_{ICA}$が単位行列ではない時，$\hat{\bm{W}}_{ICA}$の対角成分に必ず$0$が含まれることが知られている．従って，$\bm{W}_{ICA}$を置換して対角成分が全て非ゼロになるような置換行列$\bm{P}_{inv} = \bm{P}_{ICA}^{-1}$を推定すればよい．そこで，$\hat{\bm{W}}_{ICA}$の対角成分の絶対値が最大になるような$\hat{\bm{P}}_{inv}$を推定する．
 
 $$
-\hat{\bm{P}}_\rm{inv} = \underset{\bm{P}_\rm{inv}} {\operatorname{argmin}} \sum_{i=1}^{m} \frac{1}{|(\bm{P}_\rm{inv} \hat{\bm{W}}_\rm{ICA})_{ii}|}
+\hat{\bm{P}}_{inv} = \underset{\bm{P}_{inv}} {\operatorname{argmin}} \sum_{i=1}^{m} \frac{1}{|(\bm{P}_{inv} \hat{\bm{W}}_{ICA})_{ii}|}
 $$
 
-このような$\hat{\bm{P}}_\rm{inv}$を探索する．
+このような$\hat{\bm{P}}_{inv}$を探索する．
 
 !!! Tip
     これを純粋に行うと計算量が$O(m!)$となり非常に大きくなるのでハンガリアン法で探索する．
  
- $\hat{\bm{P}}_\rm{inv}$を式$\ref{a}$の両辺に左から掛けると，
+ $\hat{\bm{P}}_{inv}$を式$\ref{a}$の両辺に左から掛けると，
 
 $$
-\hat{\bm{P}}_\rm{inv} \hat{\bm{W}}_\rm{ICA} = \hat{\bm{P}}_\rm{inv} \hat{\bm{P}}_\rm{ICA} \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) = \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) \label{b}\tag{2}
+\hat{\bm{P}}_{inv} \hat{\bm{W}}_{ICA} = \hat{\bm{P}}_{inv} \hat{\bm{P}}_{ICA} \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) = \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) \label{b}\tag{2}
 $$
 
 ここで，$\bm{B}$を隣接行列とみなした有向グラフがDAGであることから，$\bm{B}$が (対角成分も$0$の) 下三角行列になるような$\bm{x}$の各成分の入れ替えが必ず存在するということが言える． (このような順序を因果的順序という．)
@@ -68,16 +68,16 @@ $$
 また，因果順序の入れ替えでは対角成分の値は対角成分の値としか入れ替わらないことから，$\bm{B}$の対角成分は全て$0$である．よって$\rm{diag}({\bm{I} - \bm{B}}) = \bm{I}$が成り立つ．従って，$\hat{\bm{D}}$は
 
 $$
-\hat{\bm{D}} = \rm{diag}(\hat{\bm{P}}_\rm{inv} \hat{\bm{W}}_\rm{ICA})
+\hat{\bm{D}} = \rm{diag}(\hat{\bm{P}}_{inv} \hat{\bm{W}}_{ICA})
 $$
 
 と推定できる．従って，$\hat{\bm{D}}^{-1}$を式$\ref{b}$の両辺に左から掛けると，
 
 $$
 \begin{aligned}
-\hat{\bm{D}}^{-1} \hat{\bm{P}}_\rm{inv} \hat{\bm{W}}_\rm{ICA} &= \hat{\bm{D}}^{-1} \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) \\
-\hat{\bm{D}}^{-1} \hat{\bm{P}}_\rm{inv} \hat{\bm{W}}_\rm{ICA} &= \bm{I} - \hat{\bm{B}} \\
-\hat{\bm{B}} &= \bm{I} - \hat{\bm{D}}^{-1} \hat{\bm{P}}_\rm{inv} \hat{\bm{W}}_\rm{ICA}
+\hat{\bm{D}}^{-1} \hat{\bm{P}}_{inv} \hat{\bm{W}}_{ICA} &= \hat{\bm{D}}^{-1} \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) \\
+\hat{\bm{D}}^{-1} \hat{\bm{P}}_{inv} \hat{\bm{W}}_{ICA} &= \bm{I} - \hat{\bm{B}} \\
+\hat{\bm{B}} &= \bm{I} - \hat{\bm{D}}^{-1} \hat{\bm{P}}_{inv} \hat{\bm{W}}_{ICA}
 \end{aligned}
 $$
 
