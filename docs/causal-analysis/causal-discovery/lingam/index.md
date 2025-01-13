@@ -1,6 +1,6 @@
 # LiNGAM
 
-## [SEM](/causal-analysis/#sem)における仮定
+## [SEM](/AI-Book/causal-analysis/#sem)における仮定
 
 - 線形性
 - 非ガウス連続誤差変数
@@ -9,7 +9,7 @@
 
 ## LiNGAMモデル
 
-[SEM](/causal-analysis/#sem)は，LiNGAMの文脈では，観測変数ベクトル$\bm{x}$，未観測変数ベクトル$\bm{e}$，係数行列$\bm{B}$を使って
+[SEM](/AI-Book/causal-analysis/#sem)は，LiNGAMの文脈では，観測変数ベクトル$\bm{x}$，未観測変数ベクトル$\bm{e}$，係数行列$\bm{B}$を使って
 
 $$
 \bm{x} = \bm{B} \bm{x} + \bm{e}
@@ -35,7 +35,7 @@ $$
 \bm{x} = \bm{A} \bm{e}
 $$
 
-となる．ここで，$\bm{e}$の各成分は独立かつ非ガウス連続分布に従うため，[ICA](/other/ica/#ica)により復元行列$\hat{\bm{W}}_\rm{ICA}$を推定することができる．
+となる．ここで，$\bm{e}$の各成分は独立かつ非ガウス連続分布に従うため，[ICA](/AI-Book/other/ica/#ica)により復元行列$\hat{\bm{W}}_\rm{ICA}$を推定することができる．
 
 $$
 \hat{\bm{W}}_\rm{ICA} = \bm{P} \bm{D} \bm{A}^{-1} = \bm{P} \bm{D} (\bm{I} - \bm{B}) \label{a}\tag{1}
@@ -85,7 +85,7 @@ $$
 
 しかし，$\hat{\bm{B}}$には推定誤差が含まれているため，$\hat{\bm{B}}$を隣接行列とみなした有向グラフはDAGになるとは限らない．
 
-そこで，この$\hat{\bm{B}}$から$\bm{x}$の因果的順序を推測し，その順序を考慮した[線形回帰](/regression-analysis/linear-regression/#_1)を行うことで，その偏回帰係数によって$\bm{B}$を推定する．
+そこで，この$\hat{\bm{B}}$から$\bm{x}$の因果的順序を推測し，その順序を考慮した[線形回帰](/AI-Book/regression-analysis/linear-regression/#_1)を行うことで，その偏回帰係数によって$\bm{B}$を推定する．
 
 $\bm{B}$が下三角行列になるように$\bm{x}$を置換する置換行列を$\bm{P}$と置く．LiNGAMモデルの両辺に$\bm{P}$を左から掛けると，
 
@@ -109,9 +109,9 @@ $$
 !!! Warning
     これを純粋に行うと計算量が$O(m!)$となり非常に大きくなるのでアルゴリズムを工夫する必要がある．
 
-$\hat{\bm{P}}$により$\bm{x}$の因果的順序が推定されたので，$\bm{x}$の各成分について，自身より因果的順序が前だと推定された成分を説明変数として[線形回帰](/regression-analysis/linear-regression/#_1)を行うことで，その偏回帰係数によって$\bm{B}$を推定することができる．
+$\hat{\bm{P}}$により$\bm{x}$の因果的順序が推定されたので，$\bm{x}$の各成分について，自身より因果的順序が前だと推定された成分を説明変数として[線形回帰](/AI-Book/regression-analysis/linear-regression/#_1)を行うことで，その偏回帰係数によって$\bm{B}$を推定することができる．
 
-この[線形回帰](/regression-analysis/linear-regression/#_1)に，[スパース回帰](/regression-analysis/linear-regression/sparse-regression/#_1)の一種である[適応型Lasso](/regression-analysis/linear-regression/sparse-regression/adaptive-lasso/#lasso)を用いることで冗長な有向辺を枝刈りすることができる．
+この[線形回帰](/AI-Book/regression-analysis/linear-regression/#_1)に，[スパース回帰](/AI-Book/regression-analysis/linear-regression/sparse-regression/#_1)の一種である[適応型Lasso](/AI-Book/regression-analysis/linear-regression/sparse-regression/adaptive-lasso/#lasso)を用いることで冗長な有向辺を枝刈りすることができる．
 
 ## 論文
 
