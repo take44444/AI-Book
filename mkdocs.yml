@@ -50,7 +50,7 @@ nav:
       - causal-analysis/causal-discovery/index.md
       - LiNGAM:
         - causal-analysis/causal-discovery/lingam/index.md
-      - Direct-LiNGAM:
+      - DirectLiNGAM:
         - causal-analysis/causal-discovery/direct-lingam/index.md
       - VAR-LiNGAM:
         - causal-analysis/causal-discovery/var-lingam/index.md
