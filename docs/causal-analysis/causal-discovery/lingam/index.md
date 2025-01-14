@@ -1,4 +1,4 @@
-# LiNGAM
+# LiNGAM[^1]
 
 ## [SEM](/AI-Book/causal-analysis/#sem)における仮定
 
@@ -43,27 +43,29 @@ $$
 
 ここで，この$\bm{P}_\mathrm{ICA}$の推定を行う．
 
-$\hat{\bm{W}}_\mathrm{ICA}$の行の順序が$\bm{W}$と等しくない，つまり$\bm{P}_\mathrm{ICA}$が単位行列ではない時，$\hat{\bm{W}}_\mathrm{ICA}$の対角成分に必ず$0$が含まれることが知られている．従って，$\bm{W}_\mathrm{ICA}$を置換して対角成分が全て非ゼロになるような置換行列$\bm{P}_\mathrm{inv} = \bm{P}_\mathrm{ICA}^{-1}$を推定すればよい．そこで，$\hat{\bm{W}}_\mathrm{ICA}$の対角成分の絶対値が最大になるような$\hat{\bm{P}}_\mathrm{inv}$を推定する．
+$\hat{\bm{W}}_\mathrm{ICA}$の行の順序が$\bm{W}$と等しくない，つまり$\bm{P}_\mathrm{ICA}$が単位行列ではない時，$\hat{\bm{W}}_\mathrm{ICA}$の対角成分に必ず$0$が含まれることが知られている．従って，$\bm{W}_\mathrm{ICA}$を置換して対角成分が全て非ゼロになるような置換行列$\bm{P}_\mathrm{inv} = \bm{P}_\mathrm{ICA}^{-1}$を推定すればよい．そこで，$\bm{P}_\mathrm{inv} \hat{\bm{W}}_\mathrm{ICA}$の対角成分の絶対値が最大になるような$\hat{\bm{P}}_\mathrm{inv}$を推定する．
+
+!!! Warning
+    これを純粋に行うと計算量が$O(m!)$となり非常に大きくなるのでアルゴリズムを工夫する必要がある．
+
+この問題は次の式で言い換えることができる．
 
 $$
 \hat{\bm{P}}_\mathrm{inv} = \underset{\bm{P}_\mathrm{inv}} {\operatorname{argmin}} \sum_{i=1}^{m} \frac{1}{|(\bm{P}_\mathrm{inv} \hat{\bm{W}}_\mathrm{ICA})_{ii}|}
 $$
 
-このような$\hat{\bm{P}}_\mathrm{inv}$を探索する．
-
-!!! Tip
-    これを純粋に行うと計算量が$O(m!)$となり非常に大きくなるのでハンガリアン法で探索する．
+これは，$\hat{\bm{W}}_\mathrm{ICA}$に対する割り当て問題と同じ問題に帰着できているため，ハンガリアン法等のアルゴリズムにより，$\hat{\bm{P}}_\mathrm{inv}$を推定する．
  
- $\hat{\bm{P}}_\mathrm{inv}$を式$\ref{a}$の両辺に左から掛けると，
+$\hat{\bm{P}}_\mathrm{inv}$を式$\ref{a}$の両辺に左から掛けると，
 
 $$
 \hat{\bm{P}}_\mathrm{inv} \hat{\bm{W}}_\mathrm{ICA} = \hat{\bm{P}}_\mathrm{inv} \hat{\bm{P}}_\mathrm{ICA} \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) = \hat{\bm{D}} (\bm{I} - \hat{\bm{B}}) \label{b}\tag{2}
 $$
 
-ここで，$\bm{B}$を隣接行列とみなした有向グラフがDAGであることから，$\bm{B}$が (対角成分も$0$の) 下三角行列になるような$\bm{x}$の各成分の入れ替えが必ず存在するということが言える． (このような順序を因果的順序という．)
+となる．ここで，$\bm{B}$を隣接行列とみなした有向グラフがDAGであることから，$\bm{B}$が (対角成分も$0$の) 下三角行列になるような$\bm{x}$の各成分の入れ替えが必ず存在するということが言える． (このような順序を因果的順序という．)
 
 !!! Note
-    アルゴリズムにおけるトポロジカルソートも，この「DAGの隣接行列に因果的順序が存在する」ことに基づいている．
+    アルゴリズム分野におけるトポロジカルソートも，この「DAGの隣接行列に因果的順序が存在する」ことに基づいている．
 
 また，因果順序の入れ替えでは対角成分の値は対角成分の値としか入れ替わらないことから，$\bm{B}$の対角成分は全て$0$である．よって$\mathrm{diag}({\bm{I} - \bm{B}}) = \bm{I}$が成り立つ．従って，$\hat{\bm{D}}$は
 
@@ -109,10 +111,8 @@ $$
 !!! Warning
     これを純粋に行うと計算量が$O(m!)$となり非常に大きくなるのでアルゴリズムを工夫する必要がある．
 
-$\hat{\bm{P}}$により$\bm{x}$の因果的順序が推定されたので，$\bm{x}$の各成分について，自身より因果的順序が前だと推定された成分を説明変数として[線形回帰](/AI-Book/regression-analysis/linear-regression/#_1)を行うことで，その偏回帰係数によって$\bm{B}$を推定することができる．
+$\hat{\bm{P}}$を探索する効率的なアルゴリズムについては省略する．$\hat{\bm{P}}$により$\bm{x}$の因果的順序が推定されたので，$\bm{x}$の各成分について，自身より因果的順序が前だと推定された成分を説明変数として[線形回帰](/AI-Book/regression-analysis/linear-regression/#_1)を行うことで，その偏回帰係数によって$\bm{B}$を推定することができる．
 
 この[線形回帰](/AI-Book/regression-analysis/linear-regression/#_1)に，[スパース回帰](/AI-Book/regression-analysis/linear-regression/sparse-regression/#_1)の一種である[適応型Lasso](/AI-Book/regression-analysis/linear-regression/sparse-regression/adaptive-lasso/#lasso)を用いることで冗長な有向辺を枝刈りすることができる．
 
-## 論文
-
-[1] SHIMIZU, Shohei, et al. A linear non-Gaussian acyclic model for causal discovery. Journal of Machine Learning Research, 2006, 7.10.
+[^1]: Shimizu, Shohei, et al. "A linear non-Gaussian acyclic model for causal discovery." Journal of Machine Learning Research 7.10 (2006).
