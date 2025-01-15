@@ -60,6 +60,18 @@ nav:
         - causal-analysis/causal-discovery/no-tears/index.md
       - SAM:
         - causal-analysis/causal-discovery/sam/index.md
+  - 最適化問題:
+    - optimization/index.md
+    - 連続最適化問題:
+      - optimization/continuous-optimization/index.md
+      - 線形計画問題:
+        - optimization/continuous-optimization/linear-programming/index.md
+      - 制約なし最適化問題:
+        - optimization/continuous-optimization/unconstrained-optimization/index.md
+      - 制約付き最適化問題:
+        - optimization/continuous-optimization/constrained-optimization/index.md
+    - 離散最適化問題:
+      - optimization/discrete-optimization/index.md
   - その他:
     - 独立成分分析:
       - other/ica/index.md
