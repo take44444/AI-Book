@@ -42,6 +42,8 @@ nav:
         - regression-analysis/linear-regression/sparse-regression/index.md
         - 適応型Lasso:
           - regression-analysis/linear-regression/sparse-regression/adaptive-lasso/index.md
+    - ロジスティック回帰:
+      - regression-analysis/logistic-regression/index.md
   - 因果分析:
     - causal-analysis/index.md
     - 統計的因果推論:
@@ -54,6 +56,8 @@ nav:
         - causal-analysis/causal-discovery/direct-lingam/index.md
       - VAR-LiNGAM:
         - causal-analysis/causal-discovery/var-lingam/index.md
+      - NO TEARS:
+        - causal-analysis/causal-discovery/no-tears/index.md
       - SAM:
         - causal-analysis/causal-discovery/sam/index.md
   - その他:
