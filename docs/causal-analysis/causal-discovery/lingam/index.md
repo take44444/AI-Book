@@ -54,7 +54,7 @@ $$
 \hat{\bm{P}}_\mathrm{inv} = \underset{\bm{P}_\mathrm{inv}} {\operatorname{argmin}} \sum_{i=1}^{m} \frac{1}{|(\bm{P}_\mathrm{inv} \hat{\bm{W}}_\mathrm{ICA})_{ii}|}
 $$
 
-これは，$\hat{\bm{W}}_\mathrm{ICA}$に対する割り当て問題と同じ問題に帰着できているため，ハンガリアン法等のアルゴリズムにより，$\hat{\bm{P}}_\mathrm{inv}$を推定する．
+これは，$\hat{\bm{W}}_\mathrm{ICA}$に対する割当問題と同じ問題に帰着できているため，ハンガリアン法等のアルゴリズムにより，$\hat{\bm{P}}_\mathrm{inv}$を推定する．
  
 $\hat{\bm{P}}_\mathrm{inv}$を式$\ref{a}$の両辺に左から掛けると，
 
